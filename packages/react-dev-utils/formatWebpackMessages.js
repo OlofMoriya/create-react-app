@@ -15,7 +15,12 @@ function isLikelyASyntaxError(message) {
 
 // Cleans up webpack error messages.
 function formatMessage(message) {
-  let lines = message.split('\n');
+  let lines= [];
+  if (typeof(message) == "object" && "message" in message){
+    lines = message.message.split('\n');
+  } else {
+    lines = message.split('\n');
+  }
 
   // Strip webpack-added headers off errors/warnings
   // https://github.com/webpack/webpack/blob/master/lib/ModuleError.js
